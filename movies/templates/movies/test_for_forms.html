@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+
+{% block content %}
+<div>
+<form action="#" method="post">
+    {% csrf_token %}
+{{ form }}
+    {{form.your_name.errors}}
+    <label for="id_your_name">Text your name </label>
+    {{form.your_name}}
+    {{form.help_text}}
+
+
+        <button type="submit">Send</button>
+</form>
+</div>
+
+{% endblock %}

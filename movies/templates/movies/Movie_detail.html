@@ -1,0 +1,87 @@
+{% extends 'movies/base.html' %}
+{% block title %} {{movies_detail.Title}} {% endblock %}
+{% block content %}
+		                        <section id="banner">
+									<div class="major">
+										<header>
+											<h1>{{movies_detail.Title}}</h1>
+											<p>{{movies_detail.Tagline}}</p>
+										</header>
+										<p>{{movies_detail.Description}}</p>
+
+										<ul class="descript">
+											<li>Год: {{movies_detail.Year}}</li>
+											<li>Страна: {{movies_detail.Country}}</li>
+											<li>Режиссер:
+												{% for director in movies_detail.Director.all %}
+													{{director.Name}}
+												{% endfor %}
+											</li>
+											<li>Актеры:
+												{% for actor in movies_detail.Actors.all %}
+													{{actor.Name}}
+												{% endfor %}
+											</li>
+											<li>Жанр:
+											{% for genre in movies_detail.Genre.all %}
+													{{genre.Name}}
+												{% endfor %}
+											</li>
+											<li>Премьера в мире: {{movies_detail.World_premier}}</li>
+											<li>Бюджет: ${{movies_detail.Budjet}} долларов сша</li>
+											<li>Сборы в США: ${{movies_detail.Fees_in_Usa}}</li>
+											<li>Сборы в мире: ${{movies_detail.Fees_in_world}}</li>
+											<li>Категория: {{movies_detail.Category}}</li><br>
+											<li><div>
+										<p>Кадры из фильма: </p>
+											{% for image in movies_detail.frameofmovies_set.all %}
+											<img style="{border-radius:25px;}" src="{{image.Image.url}}" width="150" height="90">
+											{% endfor %}
+										</div></li>
+										</ul>
+
+										<ul class="actions">
+											<li><a href="#" class="button big">Перейти к обсуждению</a></li>
+									</span>
+										</ul>
+
+										<div>
+								<form action="{% url 'create_review' movies_detail.pk %}" method="POST">
+                                 {% csrf_token %}
+                                 <div class="input-group">
+                                    <label class="form-label" for="Name">Имя</label>
+                                    <input type="text" class="form-control" id="Name" name="Name" required placeholder = "Your name"></input>
+                                 </div>
+                                 <div class="input-group">
+                                    <label class="form-label"   for="Email">Email</label>
+                                    <input type="email" class="form-control" id="Email" name="Email" required placeholder = "Text email"></input>
+                                 </div>
+                                 <div class="input-group">
+                                    <label class="form-label" for="Text" required placeholder = "...">Ваш комментарий</label>
+                                    <textarea class="form-control"  name="Text" id="Text" rows="5"></textarea>
+                                 </div>
+                                    <div>
+                                       <button class="btn">Отправить</button>
+                                    </div>
+                                 </form>
+							</div>
+                           <div>
+
+									<div>
+
+										<ul>
+											<img>
+											<li>Имя: </li>
+											<li>Отзыв: </li>
+										</ul>
+									</div>
+										</div>
+
+
+									</div>
+									<span class="image object">
+										<img src="{{movies_detail.Poster.url}}" alt="" />
+									</span>
+
+								</section>
+{% endblock %}
